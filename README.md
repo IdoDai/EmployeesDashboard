@@ -70,3 +70,6 @@ Open your browser and navigate to the local address provided by Vite (typically 
 
 Note: The frontend will seamlessly handle communication with the backend via CORS, fetching and rendering the employee task breakdown summary in real-time.
 
+******
+I assumed that the only possible values for the status field in the usp_UpdateTaskStatus procedure are the three values specified during database creation. Furthermore, I assumed that if the input status matches the task's current status, an error should be raised (as this state is invalid) with the exception of the 'Done' status. I am aware that handling this would simply require adjusting the conditional statements inside the procedure.
+
