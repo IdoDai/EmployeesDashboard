@@ -16,9 +16,9 @@ Navigate to the /db folder and execute the scripts in the following order:
 
 ⚙️ Step 2: Environment Configuration
 
-The project utilizes a `.env` file located inside the backend source folder (`PartTwo/src/.env`) to manage database credentials and server ports.
+The project utilizes a `.env` file located inside the backend source folder (`PartTwo/.env`) to manage database credentials and server ports.
 
-Make sure to update the `.env` file at `PartTwo/src/.env` with your local SQL Server credentials:
+Make sure to update the `.env` file at `PartTwo/.env` with your local SQL Server credentials:
 
 env
 # Server Port Configuration
