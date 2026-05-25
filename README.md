@@ -43,7 +43,7 @@ The backend server exposes the REST API endpoints and communicates with your SQL
   npm install
 
 3. Start the API server:
-   node src/server.js
+   npm start
 
 The server will start running and listening on http://localhost:3000.
 
