@@ -52,7 +52,7 @@ Once the backend is running on port 3000, the following endpoints are fully func
 
   GET http://localhost:3000/employees - Fetches the comprehensive task breakdown summary for all employees (executes the usp_GetEmployeeTaskSummary stored procedure).
   
-  POST http://localhost:3000/tasks - Creates a new task in the database (executes usp_CreateTask).
+  GET http://localhost:3000/tasks - Creates a new task in the database (executes usp_CreateTask).
   
   PATCH http://localhost:3000/tasks/:id/status - Updates the status of a specific task by its ID (executes usp_UpdateTaskStatus).
 
