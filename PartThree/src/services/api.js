@@ -5,5 +5,5 @@ export const getEmployees = async () => {
   if (!response.ok) {
     throw new Error(`API Error: Status ${response.status}`);
   }
-  return await response.json();
+  return response.json();
 };
