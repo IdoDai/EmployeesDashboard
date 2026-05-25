@@ -163,6 +163,15 @@ AS
 BEGIN
     SET NOCOUNT ON;
     BEGIN TRY
+       
+        DECLARE @OverloadedEmpID INT;
+        DECLARE @DepartmentID INT;
+        DECLARE @OpenTaskCount INT;
+        DECLARE @ExcessCount INT;
+        DECLARE @TargetEmployeeID INT;
+        DECLARE @TaskToMove INT;
+        DECLARE @ErrMsg NVARCHAR(4000);
+
         CREATE TABLE #EmployeeLoad (
             EmployeeID INT PRIMARY KEY,
             DepartmentID INT,
@@ -180,10 +189,6 @@ BEGIN
             FROM #EmployeeLoad
             WHERE ActiveTaskCount > 3;
 
-        DECLARE @OverloadedEmpID INT;
-        DECLARE @DepartmentID INT;
-        DECLARE @OpenTaskCount INT;
-
         BEGIN TRANSACTION;
 
         OPEN overloaded_employee_cursor;
@@ -191,11 +196,11 @@ BEGIN
 
         WHILE @@FETCH_STATUS = 0
         BEGIN
-            DECLARE @ExcessCount INT = @OpenTaskCount - 3;
+            SET @ExcessCount = @OpenTaskCount - 3;
 
             WHILE @ExcessCount > 0
             BEGIN
-                DECLARE @TargetEmployeeID INT = NULL;
+                SET @TargetEmployeeID = NULL;
 
                 SELECT TOP 1 @TargetEmployeeID = EmployeeID
                 FROM #EmployeeLoad
@@ -209,7 +214,6 @@ BEGIN
                     BREAK; 
                 END
 
-                DECLARE @TaskToMove INT;
                 SELECT TOP 1 @TaskToMove = TaskID 
                 FROM Tasks 
                 WHERE AssignedTo = @OverloadedEmpID AND Status <> 'Done'
@@ -255,7 +259,7 @@ BEGIN
         IF @@TRANCOUNT > 0 
             ROLLBACK TRANSACTION;
 
-        DECLARE @ErrMsg NVARCHAR(4000) = ERROR_MESSAGE();
+        SET @ErrMsg = ERROR_MESSAGE();
         RAISERROR(N'Error in usp_RebalanceTasks: %s', 16, 1, @ErrMsg);
     END CATCH
 END;
